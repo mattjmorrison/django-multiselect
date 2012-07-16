@@ -17,6 +17,9 @@ class SampleModel(Model):
     choices = fields.ManyToManyField(Choice)
     passwd = TextField()
 
+    def verbose_label(self):
+        return unicode(self.name)
+
     def __unicode__(self):
         return unicode(self.pk)
 
@@ -27,6 +30,7 @@ class SelectForm(Form):
 
 
 class ModelSelectForm(ModelForm):
+
     class Meta:
         model = SampleModel
 
@@ -74,6 +78,16 @@ class ModelMultipleChoiceFieldTests(test.TestCase):
     def test_use_multiselect_widget(self):
         form = ModelSelectForm()
         self.assertTrue(isinstance(form.fields['choices'].widget, widgets.MultiSelectWidget))
+
+    def test_uses_verbose_label_when_obj_has_attribute(self):
+        model = SampleModel(name="A name")
+        f = fields.ModelMultipleChoiceField(SampleModel.objects.all())
+        self.assertEqual(model.verbose_label(), f.label_from_instance(model))
+
+    def test_uses_super_label_from_instance_when_object_doesnt_have_verbose_label(self):
+        model = Choice(choice='a choice')
+        f = fields.ModelMultipleChoiceField(Choice.objects.all())
+        self.assertEqual(str(model), f.label_from_instance(model))
 
 
 class ManyToManyFieldTests(test.TestCase):
