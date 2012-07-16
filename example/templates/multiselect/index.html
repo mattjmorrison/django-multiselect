@@ -1,7 +1,8 @@
+{% load staticfiles %}
 <html>
     <head>
         {{ form.media.css }}
-        <link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}multiselect/css/themes/smoothness/jquery-ui-1.7.1.custom.css" />
+        <link type="text/css" rel="stylesheet" href="{% static 'multiselect/css/themes/smoothness/jquery-ui-1.7.1.custom.css' %}" />
     </head>
     <body>
 

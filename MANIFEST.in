@@ -1,3 +1,5 @@
-include README
-recursive-include src/multiselect/media *
-recursive-include src/multiselect/templates *
+include README.rst
+include LICENSE
+recursive-include multiselect/static *
+recursive-include multiselect/templates *
+recursive-include requirements *

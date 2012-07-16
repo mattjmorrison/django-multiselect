@@ -1,0 +1,2 @@
+-i http://localhost:8888/simple/
+-r dist.txt
