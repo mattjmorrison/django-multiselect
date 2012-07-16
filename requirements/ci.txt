@@ -1,2 +1,4 @@
 -r dev.txt
 nosexcover
+pep8
+pyflakes
