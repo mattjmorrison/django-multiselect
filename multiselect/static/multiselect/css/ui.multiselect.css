@@ -31,3 +31,6 @@
 .ui-multiselect .overlay { background: #aaaaaa; opacity: .30;filter:Alpha(Opacity=30); }
 
 .ui-multiselect li a.action { position: absolute; border: none; right: 0px; top: 1px; padding-right: 2px; }
+
+form .ui-multiselect {margin-right: 5px; float: left; border-color: #ccc;}
+form .ui-multiselect div.selected {border-color: #ccc;}
