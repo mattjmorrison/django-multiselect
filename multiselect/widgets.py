@@ -4,10 +4,12 @@ from django.conf import settings
 
 class MultiSelectWidget(forms.SelectMultiple):
     css_class = 'multiselect'
-    class Media:
+
+    class Media(object):
         css = {
             'all': (
                 settings.STATIC_URL + 'multiselect/css/ui.multiselect.css',
+                settings.STATIC_URL + 'multiselect/css/themes/smoothness/jquery-ui-1.7.1.custom.css',
             )
         }
         js = (
