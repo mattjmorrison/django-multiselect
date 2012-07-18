@@ -1,6 +1,6 @@
 /* Multiselect
 ----------------------------------*/
-.multiselect {width: 624px; height: 150px;}
+select[multiple].multiselect {width: 624px; height: 150px !important;}
 
 .ui-multiselect { border: 1px solid; font-size: 0.8em; }
 .ui-multiselect ul { -moz-user-select: none; }
