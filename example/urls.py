@@ -7,6 +7,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'example.sample.views.index', name='index'),
+    url(r'^2$', 'example.sample.views.index2', name='index2'),
     # Example:
     # (r'^django_project/', include('django_project.foo.urls')),
 

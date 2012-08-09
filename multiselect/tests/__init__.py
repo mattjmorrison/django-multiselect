@@ -1,3 +1,4 @@
+from textwrap import dedent
 import re
 from django import test
 from django.db.models import Model, CharField, TextField
@@ -98,3 +99,62 @@ class ManyToManyFieldTests(test.TestCase):
     def test_use_help_text_declared_in_model_when_present(self):
         field = fields.ManyToManyField(SampleModel, help_text="help me")
         self.assertEqual("help me", field.help_text)
+
+
+class FilteredSelectMultiple(test.TestCase):
+
+    def test_sets_verbose_name_in_init(self):
+        widget = widgets.FilteredSelectMultiple('This is my name', is_stacked=False)
+        self.assertEqual("This is my name", widget.verbose_name)
+
+    def test_sets_is_stacked_in_init(self):
+        widget = widgets.FilteredSelectMultiple('This is my name', is_stacked=False)
+        self.assertFalse(widget.is_stacked)
+
+    def test_renders_select(self):
+        choices = ((0, 'A'), (1, 'B'), (2, 'C'))
+        widget = widgets.FilteredSelectMultiple('This is my name', is_stacked=False, choices=choices)
+        data_attrs = 'data-verbose-name="This is my name" data-static="/static/multiselect/"'
+        self.assertEqual(dedent("""
+        <select multiple="multiple" {} name="Name" data-is-stacked="0" class="selectfilter">
+        <option value="0">A</option>
+        <option value="1" selected="selected">B</option>
+        <option value="2" selected="selected">C</option>
+        </select>
+        """).strip().format(data_attrs), widget.render("Name", (1, 2)))
+
+    def test_sets_is_stacked_data_attribute_when_false(self):
+        widget = widgets.FilteredSelectMultiple('', is_stacked=False)
+        self.assertIn('data-is-stacked="0"', widget.render('', ''))
+
+    def test_sets_stacked_class_when_is_stacked(self):
+        widget = widgets.FilteredSelectMultiple('', is_stacked=True)
+        self.assertRegexpMatches(widget.render('', ''), 'class="[^"]*stacked[^"]*"')
+
+    def test_does_not_set_stacked_class_when_is_not_stacked(self):
+        widget = widgets.FilteredSelectMultiple('', is_stacked=False)
+        self.assertRegexpMatches(widget.render('', ''), 'class="(?![^"]*stacked[^"]*).*"')
+
+    def test_sets_is_stacked_data_attribute_when_true(self):
+        widget = widgets.FilteredSelectMultiple('', is_stacked=True)
+        self.assertIn('data-is-stacked="1"', widget.render('', ''))
+
+    def test_sets_verbose_name_data_attribute(self):
+        widget = widgets.FilteredSelectMultiple('XXXXX', is_stacked=True)
+        self.assertIn('data-verbose-name="XXXXX"', widget.render('', ''))
+
+    def test_sets_static_data_attribute(self):
+        widget = widgets.FilteredSelectMultiple('', is_stacked=True)
+        self.assertIn('data-static="/static/multiselect/"', widget.render('', ''))
+
+    def test_includes_js_in_widget_media(self):
+        self.assertEqual(
+            ["/static/multiselect/js/DjangoSelect.js"],
+            widgets.FilteredSelectMultiple.Media.js
+        )
+
+    def test_includes_css_in_widget_media(self):
+        self.assertEqual(
+            ["/static/multiselect/css/DjangoSelect.css"],
+            widgets.FilteredSelectMultiple.Media.css['all']
+        )

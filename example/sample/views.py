@@ -10,3 +10,9 @@ def index(request):
     
     return render_to_response("multiselect/index.html", data,
                               context_instance=RequestContext(request))
+
+def index2(request):
+    data = {'form': forms.SelectForm2(), 'modelform':forms.ModelSelectForm2()}
+
+    return render_to_response("multiselect/index.html", data,
+                              context_instance=RequestContext(request))
