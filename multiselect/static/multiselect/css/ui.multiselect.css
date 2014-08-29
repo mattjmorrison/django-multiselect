@@ -5,7 +5,7 @@ select[multiple].multiselect {width: 624px; height: 150px !important;}
 .ui-multiselect { border: 1px solid; font-size: 0.8em; }
 .ui-multiselect ul { -moz-user-select: none; }
 .ui-multiselect div.list-container { padding: 0; margin: 0; border: 0; float:left;  }
-.ui-multiselect ul.list { position: relative; padding: 0; overflow: auto; overflow-x: hidden; margin: 0; list-style: none; width: 100%; }
+.ui-multiselect ul.list { padding: 0; overflow: auto; overflow-x: hidden; margin: 0; list-style: none; width: 100%; }
 .ui-multiselect li { margin: 0; padding: 0; cursor: default; line-height: 20px; height: 20px; font-size: 11px; list-style: none; padding-left: 10px; white-space: nowrap; overflow: hidden; }
 .ui-multiselect li a { color: #999; text-decoration: none; padding: 0; display: block; float: left; cursor: pointer;}
 .ui-multiselect ul.ui-state-highlight { border: none; }
