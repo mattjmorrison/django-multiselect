@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="django-multiselect",
-    version="1.6.2",
+    version="1.6.3",
     description="Django multiselect",
     author="Matt Morrison and Aaron Madison",
     include_package_data=True,
