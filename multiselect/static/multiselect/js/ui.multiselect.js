@@ -1088,7 +1088,8 @@ $.widget("ui.multiselect", {
   },
   _getOptionNode: function(option) {
     option = $(option);
-    var node = $('<li class="ui-state-default ui-element"><span class="ui-icon"/>'+option.text()+'<a href="#" class="ui-state-default action"><span class="ui-corner-all ui-icon"/></a></li>').hide();
+    var node = $('<li class="ui-state-default ui-element"><span class="ui-icon"/><span class="option-text"></span><a href="#" class="ui-state-default action"><span class="ui-corner-all ui-icon"/></a></li>').hide();
+    node.find('.option-text').text(option.text())
     node.data('multiselect.optionLink', option);
     return node;
   },
@@ -1299,12 +1300,12 @@ $.widget("ui.multiselect", {
   },
   _applyItemState: function(item, selected) {
     if (selected) {
-      item.children('span').addClass('ui-helper-hidden').removeClass('ui-icon');
+      item.children('span:eq(0)').addClass('ui-helper-hidden').removeClass('ui-icon');
       item.find('a.action span').addClass('ui-icon-minus').removeClass('ui-icon-plus');
       this._registerRemoveEvents(item.find('a.action'));
       
     } else {
-      item.children('span').addClass('ui-helper-hidden').removeClass('ui-icon');
+      item.children('span:eq(0)').addClass('ui-helper-hidden').removeClass('ui-icon');
       item.find('a.action span').addClass('ui-icon-plus').removeClass('ui-icon-minus');
       this._registerAddEvents(item.find('a.action'));
     }
