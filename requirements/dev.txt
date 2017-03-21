@@ -1,2 +1,2 @@
 -r base.txt
-django_nose
+django_nose>=1.4.2,<2
