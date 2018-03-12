@@ -11,8 +11,10 @@ class SelectForm(forms.Form):
 
 
 class ModelSelectForm(forms.ModelForm):
+
     class Meta:
         model = models.SampleModel
+        fields = ['name', 'choices', 'passwd']
 
 
 class SelectForm2(forms.Form):
@@ -21,8 +23,8 @@ class SelectForm2(forms.Form):
 
 
 class ModelSelectForm2(forms.ModelForm):
+
     class Meta:
         model = models.SampleModel
-        widgets = {
-            'choices': FilteredSelectMultiple('Choices', is_stacked=False)
-        }
+        widgets = {'choices': FilteredSelectMultiple('Choices', is_stacked=False)}
+        fields = ['name', 'choices', 'passwd']

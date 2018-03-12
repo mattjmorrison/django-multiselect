@@ -9,7 +9,7 @@ from multiselect import widgets, fields
 class Choice(Model):
     choice = CharField(max_length=15)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.choice
 
 
@@ -19,10 +19,10 @@ class SampleModel(Model):
     passwd = TextField()
 
     def verbose_label(self):
-        return unicode(self.name)
+        return self.name
 
-    def __unicode__(self):
-        return unicode(self.pk)
+    def __str__(self):
+        return self.pk
 
 
 class SelectForm(Form):
@@ -34,6 +34,7 @@ class ModelSelectForm(ModelForm):
 
     class Meta:
         model = SampleModel
+        fields = ['name', 'choices', 'passwd']
 
 
 class MultiSelectWidgetTests(test.TestCase):
@@ -94,7 +95,7 @@ class ModelMultipleChoiceFieldTests(test.TestCase):
 class ManyToManyFieldTests(test.TestCase):
 
     def test_not_include_any_default_help_text(self):
-        self.assertEqual('', unicode(fields.ManyToManyField(SampleModel).help_text))
+        self.assertEqual('', fields.ManyToManyField(SampleModel).help_text)
 
     def test_use_help_text_declared_in_model_when_present(self):
         field = fields.ManyToManyField(SampleModel, help_text="help me")
@@ -115,7 +116,7 @@ class FilteredSelectMultiple(test.TestCase):
         choices = ((0, 'A'), (1, 'B'), (2, 'C'))
         widget = widgets.FilteredSelectMultiple('This is my name', is_stacked=False, choices=choices)
         data_attrs = 'data-verbose-name="This is my name" data-static="/static/multiselect/"'
-        self.assertEqual(dedent("""
+        self.assertCountEqual(dedent("""
         <select multiple="multiple" {} name="Name" data-is-stacked="0" class="selectfilter">
         <option value="0">A</option>
         <option value="1" selected="selected">B</option>
