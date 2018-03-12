@@ -9,41 +9,6 @@ http://djangosnippets.org/snippets/2079/ but added a few more things including:
 - A form field that will use the multiselect widget by default
 
 
-HOW TO INSTALL SAMPLE APPLICATION:
-============================================================
-
-#. Download the source
-
-#. Run python bootstrap.py -d
- Note:
-	- The -d command tells bootstrap to use distribute, easy_install's successor
-	- If you want to run your project with a different version of python than your default, specify that when you run the bootstrap command. IE: python2.4 bootstrap.py -d
-
-#. Run bin/buildout
-   Note: This will get all your project's dependencies listed in your setup.py file.
-
-
-#. You'll want to move the multiselect/media folder and its contents to a
-   place your static media url can see. Be sure to update widgets.py to point
-   to the right directory.
-
-HOW TO ADD TO YOUR APPLICATION:
-============================================================
-
-- Buildout
-	We highly recommend using Buildout. If you are using buildout you can add the following to your setup.py::
-
-		dependency_links = (
-			'http://github.com/mattjmorrison/django-multiselect/tarball/1.0#egg=django-multiselect',
-		),
-
-	and add ``'django-multiselect'`` to ``install_requires``
-
-- Distutils
-	If you prefer to install modules at a system level download the source and run::
-		
-		python setup.py install
-
 HOW TO USE AS A FIELD:
 ============================================================
 - In Your Models:
@@ -60,7 +25,7 @@ DEPENDENCIES:
 The following will need to be manually added to your template(s) so they are available to the widget
 
 - A jquery theme (like this one):
-	multiselect/media/css/themes/smoothness/jquery-ui-1.7.1.custom.css
+	multiselect/static/css/themes/smoothness/jquery-ui-1.7.1.custom.css
 
 - JQuery 
 	https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js
@@ -77,7 +42,7 @@ The admin site needs the same dependencies, here is how we added them.  We creat
 Just add the following::
 
     {% block extrahead %}
-        <link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}css/themes/smoothness/jquery-ui-1.7.1.custom.css" />
+        <link type="text/css" rel="stylesheet" href="{% static 'css/themes/smoothness/jquery-ui-1.7.1.custom.css' %}" />
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js"></script>
 
